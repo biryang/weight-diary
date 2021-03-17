@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weight_diary/components/history_card.dart';
 
-import 'chart.dart';
-
 class MainScreen extends StatelessWidget {
+  double _value = 40.0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,17 +11,50 @@ class MainScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text('Diary'),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Text('Diary'),
+              ),
+              Icon(Icons.wb_sunny),
+              Icon(Icons.nightlight_round),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: LineChartSample2(),
-          ),
+          Divider(),
           Container(
-            child: Text('62.5kg'),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(colors: [
+                  Colors.blue,
+                  Colors.blue,
+                  Colors.green,
+                  Colors.yellow,
+                  Colors.red,
+                  Colors.red,
+                  Colors.red
+                ])),
+            child: Slider(
+              inactiveColor: Colors.white,
+              activeColor: Colors.white,
+              value: 20,
+              min: 0,
+              max: 30,
+              onChanged: (value) {},
+            ),
           ),
+          Divider(),
+          Row(
+            children: [
+              Container(
+                child: Text('62.5kg'),
+              ),
+              Container(
+                child: Text('62.5kg'),
+              ),
+            ],
+          ),
+          Divider(),
           Padding(
             padding: EdgeInsets.all(10),
             child: Text(
@@ -32,6 +65,7 @@ class MainScreen extends StatelessWidget {
               ),
             ),
           ),
+          Divider(),
           Padding(
             padding: EdgeInsets.all(10),
             child: Text(
