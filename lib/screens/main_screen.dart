@@ -3,156 +3,99 @@ import 'package:flutter/material.dart';
 import 'package:weight_diary/components/bmi_slider.dart';
 import 'package:weight_diary/components/history_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:weight_diary/components/icon_title.dart';
 
 class MainScreen extends StatelessWidget {
-  double _value = 40.0;
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xff16172f),
+      // color: Color(0xff16172f),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    FaIcon(
-                      FontAwesomeIcons.book,
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Diary',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
+              IconTitle(
+                icon: FontAwesomeIcons.book,
+                text: 'Diary',
+                color: Colors.white,
+                fontSize: 20,
               ),
               Icon(Icons.wb_sunny),
               Icon(Icons.nightlight_round),
             ],
           ),
           Divider(),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.aspect_ratio_rounded,
-                  color: Colors.white70,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'BMI',
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+          IconTitle(
+            icon: Icons.aspect_ratio_rounded,
+            text: 'BMI',
           ),
           BmiSlider(),
           Divider(),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              children: [
-                FaIcon(
-                  FontAwesomeIcons.weight,
-                  color: Colors.white70,
-                  size: 18,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'Weight',
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+          IconTitle(
+            icon: FontAwesomeIcons.weight,
+            text: 'Status',
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Text(
-                        'Previous',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Text(
-                        '62.5kg',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Text(
-                        '17 Apr 2020',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
+                Expanded(
+                  flex: 1,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 17),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter a Height',
+                      hintStyle: TextStyle(fontSize: 15),
+                      suffixText: 'cm',
+                      prefixText: '    ',
+                    ),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Now'),
-                    Text(
-                      '62.5kg',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                      ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    margin: EdgeInsets.only(left: 10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                            color: Colors.white38,
+                            style: BorderStyle.solid,
+                            width: 1)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Now'),
+                            Text(
+                              '62.5kg',
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
           ),
           Divider(),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              children: [
-                FaIcon(
-                  FontAwesomeIcons.history,
-                  color: Colors.white70,
-                  size: 18,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'History',
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+          IconTitle(
+            icon: FontAwesomeIcons.history,
+            text: 'History',
           ),
           HistoryCard(),
           HistoryCard(),
