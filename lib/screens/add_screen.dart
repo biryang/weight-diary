@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:weight_diary/components/icon_title.dart';
 
 class AddScreen extends StatelessWidget {
   DateTime now = DateTime.now();
-  DateRangePickerController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -18,93 +18,73 @@ class AddScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Icon(Icons.add),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'New Weight',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                IconTitle(
+                  icon: Icons.add,
+                  text: 'New Weight',
+                  color: Colors.white,
+                  fontSize: 20,
                 ),
                 Divider(),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.calendar_today,
-                        color: Colors.white70,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Calendar',
-                        style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                IconTitle(
+                  icon: Icons.calendar_today,
+                  text: 'Calendar',
                 ),
                 _getVerticalCalendar(),
                 Divider(),
+                IconTitle(
+                  icon: FontAwesomeIcons.weight,
+                  text: 'Weight',
+                ),
                 Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.weight,
-                        color: Colors.white70,
-                        size: 18,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Calendar',
-                        style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                  padding: EdgeInsets.symmetric(horizontal: 40),
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 30),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter a Weight',
+                      hintStyle: TextStyle(fontSize: 20),
+                      suffixText: 'kg',
+                      prefixText: '    ',
+                    ),
                   ),
                 ),
-                TextField(),
                 Divider(),
+                IconTitle(
+                  icon: FontAwesomeIcons.book,
+                  text: "Memo",
+                ),
                 Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.book,
-                        color: Colors.white70,
-                        size: 18,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Calendar',
-                        style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                  padding: EdgeInsets.symmetric(horizontal: 40),
+                  child: TextField(
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1,
+                    maxLines: 5,
+                    decoration: InputDecoration(),
+                    onChanged: (value) {
+                      print(value);
+                    },
                   ),
                 ),
-                TextField(),
+                SizedBox(
+                  height: 20,
+                ),
+                TextButton.icon(
+                  icon: Icon(
+                    Icons.add,
+                    size: 20,
+                  ),
+                  label: Text('New Diary'),
+                  style: TextButton.styleFrom(
+                    primary: Colors.black,
+                    backgroundColor: Color(0xff1afdd4),
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: () {},
+                ),
               ],
             ),
           ),
@@ -116,6 +96,7 @@ class AddScreen extends StatelessWidget {
   SfDateRangePicker _getVerticalCalendar() {
     return SfDateRangePicker(
       view: DateRangePickerView.month,
+      initialSelectedDate: DateTime.now(),
       maxDate: DateTime.now(),
       onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
         print(args.value);

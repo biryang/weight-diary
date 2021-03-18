@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weight_diary/components/custom_floating.dart';
 import 'package:weight_diary/screens/add_screen.dart';
+import 'package:weight_diary/screens/chart_screen.dart';
 import 'package:weight_diary/screens/main_screen.dart';
 
 void main() {
@@ -15,9 +16,18 @@ class MyApp extends StatelessWidget {
       home: SafeArea(
         child: Material(
           child: Scaffold(
-            body: AddScreen(),
-            floatingActionButton: CustomFloating(),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            body: PageView(
+                onPageChanged: (value) {
+                  print(value);
+                },
+                children: [
+                  MainScreen(),
+                  AddScreen(),
+                  AA(),
+                ]),
+            floatingActionButton:false ? CustomFloating() : null,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
           ),
         ),
       ),
