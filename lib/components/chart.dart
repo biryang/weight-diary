@@ -1,12 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class LineChartSample2 extends StatefulWidget {
+class BmiLineChart extends StatefulWidget {
   @override
-  _LineChartSample2State createState() => _LineChartSample2State();
+  _LineChart createState() => _LineChart();
 }
 
-class _LineChartSample2State extends State<LineChartSample2> {
+class _LineChart extends State<BmiLineChart> {
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
@@ -17,7 +17,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
     return Stack(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.70,
+          aspectRatio: 2.3,
           child: Container(
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(
@@ -25,8 +25,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 ),
                 color: Color(0xff232d37)),
             child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 18.0, left: 12.0, top: 24, bottom: 12),
+              padding: const EdgeInsets.all(10),
               child: LineChart(
                 mainData(),
               ),

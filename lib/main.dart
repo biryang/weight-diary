@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
                 children: [
                   MainScreen(),
                   AddScreen(),
-                  AA(),
+                  HistoryScreen(),
                 ]),
-            floatingActionButton:false ? CustomFloating() : null,
+            floatingActionButton:true ? CustomFloating() : null,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           ),

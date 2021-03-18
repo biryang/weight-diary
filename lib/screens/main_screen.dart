@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weight_diary/components/bmi_slider.dart';
+import 'package:weight_diary/components/chart.dart';
 import 'package:weight_diary/components/history_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weight_diary/components/icon_title.dart';
@@ -92,6 +93,12 @@ class MainScreen extends StatelessWidget {
               ],
             ),
           ),
+          Divider(),
+          IconTitle(
+            icon: FontAwesomeIcons.chartArea,
+            text: 'Chart',
+          ),
+          BmiLineChart(),
           Divider(),
           IconTitle(
             icon: FontAwesomeIcons.history,
