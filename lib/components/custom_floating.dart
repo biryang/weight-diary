@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomFloating extends StatelessWidget {
+  CustomFloating({this.onPressed});
+  final Function onPressed;
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
@@ -16,7 +18,9 @@ class CustomFloating extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        onPressed();
+      },
     );
   }
 }

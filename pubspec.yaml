@@ -33,6 +33,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^18.4.48-beta
   provider: ^4.3.3
   hive: ^2.0.0
+  hive_flutter: ^1.0.0
 
 
 dev_dependencies:
