@@ -1,68 +1,99 @@
-import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
-import 'package:weight_diary/models/diary_model.dart';
+import 'diary.dart';
+import 'package:hive/hive.dart';
 
 class DiaryData extends ChangeNotifier {
-  // List<DiaryModel> _tasks = [];
-  // Set<String> _tags = Set();
-  //
-  // UnmodifiableListView<DiaryModel> get tasks {
-  //   return UnmodifiableListView(_tasks);
-  // }
-  // UnmodifiableListView<String> get tags {
-  //   return UnmodifiableListView(_tags);
-  // }
-  //
-  // int get taskCount {
-  //   return _tasks.length;
-  // }
-  //
-  // void getTask() async {
-  //   Set<String> tag = Set();
-  //
-  //   _tasks = await dbHelper.getTasks();
-  //
-  //   for (var task in _tasks) {
-  //     tag.add(task.tag);
-  //   }
-  //
-  //   _tags = tag;
-  //
-  //   notifyListeners();
-  // }
-  //
-  // Future<void> addTask(String newText, String newTag) async {
-  //   await dbHelper.insertTask(TaskModel(
-  //       text: newText,
-  //       tag: newTag,
-  //       done: 'uncheck',
-  //       time: DateTime.now().toString()));
-  //
-  //   getTask();
-  // }
-  //
-  // void removeTask(TaskModel task) {
-  //   _tasks.remove(task);
-  //   dbHelper.deleteTask(task.id);
-  //
-  //   getTask();
-  // }
-  //
-  // void toggleTask(TaskModel task) async {
-  //   String done = task.done == 'uncheck' ? 'check' : 'uncheck';
-  //   dbHelper.updateTask(TaskModel(
-  //       id: task.id,
-  //       text: task.text,
-  //       tag: task.tag,
-  //       done: done,
-  //       time: task.time));
-  //
-  //   getTask();
-  // }
-  //
-  // void reset() {
-  //   dbHelper.dropTable();
-  //   dbHelper.addTable();
-  // }
+  // Name our hive box for this data
+  String _boxName = "diaryBox";
+
+  // Initialize our list of contacts
+  List<Diary> _diary = [];
+
+  // Holds our active contact
+  Diary _activeDiary;
+
+  /// Get Contacts
+  /// Gets all contacts from the hive box and loads them into our state List
+  void getContacts() async {
+    var box = await Hive.openBox<Diary>(_boxName);
+
+    // Update our provider state data with a hive read, and refresh the ui
+    _diary = box.values.toList();
+    notifyListeners();
+  }
+
+  /// Get Diary
+  /// Retrieves a specific contact from our state
+  Diary getContact(index) {
+    return _diary[index];
+  }
+
+  /// Diary Count
+  /// Returns the length of the contact array
+  int get diaryCount {
+    return _diary.length;
+  }
+
+  /// Add Diary
+  /// - Saves contact data to Hive box persistent storage
+  /// - Updates our List with the hive data by read
+  /// - Notifies listeners to update the UI, which will be a consumer of the _contacts List
+  void addContact(Diary newContact) async {
+    var box = await Hive.openBox<Diary>(_boxName);
+
+    // Add a contact to our box
+    await box.add(newContact);
+
+    // Update our provider state data with a hive read, and refresh the ui
+    _diary = box.values.toList();
+    notifyListeners();
+  }
+
+  /// Delete Diary
+  void deleteContact(key) async {
+    var box = await Hive.openBox<Diary>(_boxName);
+
+    await box.delete(key);
+
+    // Update _contacts List with all box values
+    _diary = box.values.toList();
+
+    print("Deleted contact with key: " + key.toString());
+
+    // Update UI
+    notifyListeners();
+  }
+
+  /// Edit Diary
+  /// Overwrites our existing contact based on key with a brand new updated Diary object
+  void editContact({Diary contact, int contactKey}) async {
+    var box = await Hive.openBox<Diary>(_boxName);
+
+    // Add a contact to our box
+    await box.put(contactKey, contact);
+
+    // Update _contacts List with all box values
+    _diary = box.values.toList();
+
+    // Update activeContact
+    _activeDiary = box.get(contactKey);
+
+    print('New Name Of Diary: ' + contact.note);
+
+    // Update UI
+    notifyListeners();
+  }
+
+  /// Set an active contact we can notify listeners for
+  void setActiveContact(key) async {
+    var box = await Hive.openBox<Diary>(_boxName);
+    _activeDiary = box.get(key);
+    notifyListeners();
+  }
+
+  /// Get Active Diary
+  Diary getActiveContact() {
+    return _activeDiary;
+  }
 }
