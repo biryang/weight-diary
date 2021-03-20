@@ -1,3 +1,4 @@
+import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 import 'diary.dart';
@@ -13,13 +14,26 @@ class DiaryData extends ChangeNotifier {
   // Holds our active contact
   Diary _activeDiary;
 
+
+  UnmodifiableListView<Diary> get diary {
+    return UnmodifiableListView(_diary);
+  }
   /// Get Contacts
   /// Gets all contacts from the hive box and loads them into our state List
   void getContacts() async {
     var box = await Hive.openBox<Diary>(_boxName);
-
     // Update our provider state data with a hive read, and refresh the ui
     _diary = box.values.toList();
+    for(var arr in _diary){
+      List a = [
+        arr.date,
+        arr.weight,
+        arr.note
+      ];
+      print(a);
+    }
+
+
     notifyListeners();
   }
 
@@ -41,7 +55,8 @@ class DiaryData extends ChangeNotifier {
   /// - Notifies listeners to update the UI, which will be a consumer of the _contacts List
   void addContact(Diary newContact) async {
     var box = await Hive.openBox<Diary>(_boxName);
-
+    print('addContacts');
+    print(newContact);
     // Add a contact to our box
     await box.add(newContact);
 

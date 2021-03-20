@@ -12,13 +12,17 @@ class AddScreen extends StatelessWidget {
   String newNote;
 
   void _addDiary(context){
-    // Provider.of<DiaryData>(context, listen: false).addContact(
-    //   Diary(
-    //     date: newDate,
-    //     weight: (newWeight != null) ? newWeight : 0,
-    //     note: (newNote != null) ? newNote : '',
-    //   ),
-    // );
+    Provider.of<DiaryData>(context, listen: false).addContact(
+      Diary(
+        date: newDate,
+        weight: (newWeight != null) ? newWeight : 0,
+        note: (newNote != null) ? newNote : '',
+      ),
+    );
+
+    print(newDate);
+    print(newWeight);
+    print(newNote);
 
     Navigator.pop(context);
   }
@@ -106,9 +110,6 @@ class AddScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       _addDiary(context);
-                      print(newDate);
-                      print(newWeight);
-                      print(newNote);
                     },
                   ),
                 ],

@@ -117,6 +117,12 @@ class MainScreen extends StatelessWidget {
               icon: FontAwesomeIcons.history,
               text: 'History',
             ),
+            IconButton(
+              onPressed: () {
+                print('${Provider.of<DiaryData>(context).diaryCount}');
+              },
+              icon: Icon(Icons.add),
+            ),
             HistoryCard(),
             HistoryCard(),
           ],
