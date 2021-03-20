@@ -53,7 +53,7 @@ class AddScreen extends StatelessWidget {
                 Divider(),
                 IconTitle(
                   icon: FontAwesomeIcons.book,
-                  text: "Memo",
+                  text: "Note",
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40),

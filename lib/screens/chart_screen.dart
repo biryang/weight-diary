@@ -23,6 +23,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
             fontSize: 20,
           ),
           Divider(),
+          ElevatedButton(
+            child: Text('tset'),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.green,
+              padding: EdgeInsets.all(20),
+            ),
+            onPressed: () {},
+          )
         ],
       ),
     );
