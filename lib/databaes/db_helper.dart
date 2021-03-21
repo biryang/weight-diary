@@ -52,7 +52,7 @@ class DatabaseHelper {
   Future<List<DiaryModel>> getDiary() async {
     final Database db = await database;
     final List<Map<dynamic, dynamic>> maps = await db.rawQuery(
-        "SELECT $colId,date($colDate) as $colDate,$colWeight,$colNote FROM $tableName");
+        "SELECT $colId,date($colDate) as $colDate,$colWeight,$colNote FROM $tableName ORDER BY $colDate DESC, $colId DESC");
     // final List<Map<dynamic, dynamic>> maps = await db.query(
     //   tableName,
     //   columns: ['$colId','date($colDate)','$colWeight','$colNote'],
