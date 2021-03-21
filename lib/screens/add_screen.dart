@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:weight_diary/components/icon_title.dart';
 import 'package:provider/provider.dart';
-import 'package:weight_diary/models/diary.dart';
+import 'package:weight_diary/models/diary_model.dart';
 import 'package:weight_diary/models/diary_data.dart';
 
 class AddScreen extends StatelessWidget {
@@ -13,17 +13,12 @@ class AddScreen extends StatelessWidget {
 
   void _addDiary(context){
     Provider.of<DiaryData>(context, listen: false).addContact(
-      Diary(
-        date: newDate,
+      DiaryModel(
+        date: newDate.toString(),
         weight: (newWeight != null) ? newWeight : 0,
         note: (newNote != null) ? newNote : '',
       ),
     );
-
-    print(newDate);
-    print(newWeight);
-    print(newNote);
-
     Navigator.pop(context);
   }
 
