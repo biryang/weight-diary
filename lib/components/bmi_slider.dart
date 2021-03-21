@@ -1,9 +1,31 @@
 import 'package:flutter/material.dart';
 
 class BmiSlider extends StatelessWidget {
+  BmiSlider({this.value, this.left, this.right});
+
   double value = 0;
   int left = 1;
   int right = 100;
+
+  int leftValue() {
+    if (value <= 20) {
+      return left - 10;
+    } else if (value <= 21) {
+      return left;
+    } else if (value <= 22) {
+      return (left * 1.5).toInt();
+    } else if (value <= 23) {
+      return left * 2;
+    } else if (value <= 24) {
+      return left * 3;
+    } else if (value <= 25) {
+      return left * 4;
+    } else if (value <= 30) {
+      return left * 7;
+    } else if (value >= 30) {
+      return left * 10;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +37,15 @@ class BmiSlider extends StatelessWidget {
           gradient: LinearGradient(
             colors: [
               Color(0xff6490ff),
+              Color(0xff6490ff),
+              Color(0xff6490ff),
+              Color(0xff6ff65f),
               Color(0xff6ff65f),
               Color(0xfffad75d),
+              Color(0xfffad75d),
+              Color(0xffff5e5e),
+              Color(0xffff5e5e),
+              Color(0xffff5e5e),
               Color(0xffff5e5e),
             ],
           ),
@@ -26,7 +55,7 @@ class BmiSlider extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                flex: left,
+                flex: leftValue(),
                 child: SizedBox(),
               ),
               Container(
@@ -41,7 +70,7 @@ class BmiSlider extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: Text(
-                  '$value',
+                  '${value.toStringAsFixed(1)}',
                   style: TextStyle(
                       color: Colors.grey[800], fontWeight: FontWeight.w700),
                 ),
