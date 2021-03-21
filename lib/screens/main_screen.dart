@@ -20,8 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   double bmi = 0;
 
   @override
-  void initState() {
-    // TODO: implement initState
+  void initState()  {
     Provider.of<DiaryData>(context, listen: false).getContacts();
     super.initState();
   }
@@ -29,6 +28,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     bmi = (height != 0 && weight != 0) ? weight / ((height / 100) * 2) : 0;
+    weight = Provider.of<DiaryData>(context, listen: false).getContact(0).weight;
+
     return Scaffold(
       floatingActionButton: CustomFloating(
         onPressed: () {
@@ -123,7 +124,7 @@ class _MainScreenState extends State<MainScreen> {
                                     children: [
                                       Text('Now'),
                                       Text(
-                                        '62.5kg',
+                                        '${weight}kg',
                                         style: TextStyle(
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold,

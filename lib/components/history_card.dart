@@ -123,7 +123,24 @@ class _HistoryCardState extends State<HistoryCard>
                     ),
                   ],
                 ),
-                _isExpanded ? Text(widget.note) : SizedBox()
+                _isExpanded
+                    ? Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Text('Note'),
+                          ),
+                          Container(
+                            width: 500,
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: Colors.white10,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(widget.note),
+                          ),
+                        ],
+                      )
+                    : SizedBox(),
               ],
             ),
           ),
