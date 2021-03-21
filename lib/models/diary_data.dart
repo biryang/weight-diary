@@ -1,114 +1,56 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
-import 'diary.dart';
-import 'package:hive/hive.dart';
+import 'package:weight_diary/databaes/db_helper.dart';
+import 'package:weight_diary/models/diary_model.dart';
 
 class DiaryData extends ChangeNotifier {
-  // Name our hive box for this data
-  String _boxName = "diaryBox";
+  DatabaseHelper databaseHelper = DatabaseHelper();
 
   // Initialize our list of contacts
-  List<Diary> _diary = [];
+  List<DiaryModel> _diary = [];
 
-  // Holds our active contact
-  Diary _activeDiary;
-
-
-  UnmodifiableListView<Diary> get diary {
+  UnmodifiableListView<DiaryModel> get diary {
     return UnmodifiableListView(_diary);
   }
-  /// Get Contacts
-  /// Gets all contacts from the hive box and loads them into our state List
-  void getContacts() async {
-    var box = await Hive.openBox<Diary>(_boxName);
-    // Update our provider state data with a hive read, and refresh the ui
-    _diary = box.values.toList();
-    for(var arr in _diary){
-      List a = [
-        arr.date,
-        arr.weight,
-        arr.note
-      ];
-      print(a);
-    }
 
+  /// Get Contacts
+  void getContacts() async {
+    _diary = await databaseHelper.getDiary();
 
     notifyListeners();
   }
 
   /// Get Diary
-  /// Retrieves a specific contact from our state
-  Diary getContact(index) {
+  DiaryModel getContact(index) {
     return _diary[index];
   }
 
   /// Diary Count
-  /// Returns the length of the contact array
   int get diaryCount {
     return _diary.length;
   }
 
   /// Add Diary
-  /// - Saves contact data to Hive box persistent storage
-  /// - Updates our List with the hive data by read
-  /// - Notifies listeners to update the UI, which will be a consumer of the _contacts List
-  void addContact(Diary newContact) async {
-    var box = await Hive.openBox<Diary>(_boxName);
-    print('addContacts');
-    print(newContact);
-    // Add a contact to our box
-    await box.add(newContact);
-
-    // Update our provider state data with a hive read, and refresh the ui
-    _diary = box.values.toList();
-    notifyListeners();
+  void addContact(DiaryModel newContact) async {
+    await databaseHelper.insertDiary(newContact);
+    getContacts();
   }
 
   /// Delete Diary
-  void deleteContact(key) async {
-    var box = await Hive.openBox<Diary>(_boxName);
-
-    await box.delete(key);
-
-    // Update _contacts List with all box values
-    _diary = box.values.toList();
-
-    print("Deleted contact with key: " + key.toString());
-
-    // Update UI
-    notifyListeners();
+  void deleteContact(DiaryModel oldContact) async {
+    databaseHelper.deleteDiary(oldContact.id);
+    getContacts();
   }
 
   /// Edit Diary
-  /// Overwrites our existing contact based on key with a brand new updated Diary object
-  void editContact({Diary contact, int contactKey}) async {
-    var box = await Hive.openBox<Diary>(_boxName);
-
-    // Add a contact to our box
-    await box.put(contactKey, contact);
-
-    // Update _contacts List with all box values
-    _diary = box.values.toList();
-
-    // Update activeContact
-    _activeDiary = box.get(contactKey);
-
-    print('New Name Of Diary: ' + contact.note);
-
-    // Update UI
-    notifyListeners();
+  void editContact({DiaryModel contact, int contactKey}) async {
+    getContacts();
   }
 
-  /// Set an active contact we can notify listeners for
-  void setActiveContact(key) async {
-    var box = await Hive.openBox<Diary>(_boxName);
-    _activeDiary = box.get(key);
-    notifyListeners();
-  }
-
-  /// Get Active Diary
-  Diary getActiveContact() {
-    return _activeDiary;
+  /// Edit Rest
+  void resetContact() async {
+    databaseHelper.dropTable();
+    databaseHelper.addTable();
   }
 }
