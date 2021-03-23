@@ -36,6 +36,7 @@ dependencies:
 #  hive_flutter: ^1.0.0
   sqflite:
   path:
+  syncfusion_flutter_charts: ^18.4.48
 
 dev_dependencies:
   flutter_test:
