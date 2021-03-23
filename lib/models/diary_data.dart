@@ -23,7 +23,22 @@ class DiaryData extends ChangeNotifier {
 
   /// Get Diary
   DiaryModel getContact(index) {
-    return _diary[index];
+    if (_diary.length != 0) {
+      return _diary[index];
+    } else {
+      return DiaryModel(weight: 0);
+    }
+  }
+
+  double get weightMax{
+    double max = 0;
+    for(var data in _diary){
+      if(max <= data.weight){
+        max = data.weight;
+      }
+    }
+    print(max);
+    return max;
   }
 
   /// Diary Count
@@ -38,8 +53,8 @@ class DiaryData extends ChangeNotifier {
   }
 
   /// Delete Diary
-  void deleteContact(DiaryModel oldContact) async {
-    databaseHelper.deleteDiary(oldContact.id);
+  void deleteContact(int id) async {
+    databaseHelper.deleteDiary(id);
     getContacts();
   }
 
