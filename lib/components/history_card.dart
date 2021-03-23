@@ -1,11 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:weight_diary/models/diary_data.dart';
+import 'package:weight_diary/models/diary_model.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
 
 class HistoryCard extends StatefulWidget {
-  HistoryCard({this.date, this.weight, this.changeWeight, this.note});
+  HistoryCard({this.id, this.date, this.weight, this.changeWeight, this.note});
 
+  final int id;
   final String date;
   final double weight;
   final double changeWeight;
@@ -72,6 +78,9 @@ class _HistoryCardState extends State<HistoryCard>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Row(
+                      children: [],
+                    ),
                     Expanded(flex: 1, child: Text(widget.date)),
                     Expanded(
                       flex: 1,
@@ -113,14 +122,53 @@ class _HistoryCardState extends State<HistoryCard>
                     ),
                     Expanded(
                       flex: 1,
-                      child: Text(
-                        '${widget.weight}kg',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            '${widget.weight}',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text('kg')
+                        ],
                       ),
                     ),
+                    GestureDetector(
+                      onLongPress: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Delete?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Provider.of<DiaryData>(context, listen: false)
+                                          .deleteContact(widget.id);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('YES')),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('NO'))
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: FaIcon(
+                          FontAwesomeIcons.trash,
+                          size: 15,
+                        ),
+                      ),
+                    )
                   ],
                 ),
                 _isExpanded

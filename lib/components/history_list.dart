@@ -17,17 +17,25 @@ class HistoryList extends StatelessWidget {
           padding: EdgeInsets.all(0),
           itemBuilder: (context, index) {
             final diary = diaryData.diary[index];
-            final changeWeight = index == diaryData.diaryCount-1 ? 0 : diaryData.diary[index].weight - diaryData.diary[index+1].weight;
+            final changeWeight = index == diaryData.diaryCount - 1
+                ? 0
+                : diaryData.diary[index].weight -
+                    diaryData.diary[index + 1].weight;
 
             // print(changeWeight.abs());
             return HistoryCard(
+              id: diary.id,
               date: diary.date,
               weight: diary.weight,
               changeWeight: changeWeight.toDouble(),
               note: diary.note,
             );
           },
-          itemCount: (listCount == null || diaryData.diaryCount != 0) ? diaryData.diaryCount : listCount,
+          itemCount: diaryData.diaryCount <= 2
+              ? diaryData.diaryCount
+              : listCount == null
+                  ? diaryData.diaryCount
+                  : listCount,
         );
       },
     );
