@@ -11,7 +11,7 @@ class AddScreen extends StatelessWidget {
   double newWeight;
   String newNote;
 
-  void _addDiary(context){
+  void _addDiary(context) {
     Provider.of<DiaryData>(context, listen: false).addContact(
       DiaryModel(
         date: newDate.toString(),
@@ -25,93 +25,103 @@ class AddScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: viewportConstraints.maxHeight,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  IconTitle(
-                    icon: Icons.add,
-                    text: 'New Weight',
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                  Divider(),
-                  IconTitle(
-                    icon: Icons.calendar_today,
-                    text: 'Calendar',
-                  ),
-                  _getVerticalCalendar(),
-                  Divider(),
-                  IconTitle(
-                    icon: FontAwesomeIcons.weight,
-                    text: 'Weight',
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 30),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter a Weight',
-                        hintStyle: TextStyle(fontSize: 20),
-                        suffixText: 'kg',
-                        prefixText: '    ',
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      IconTitle(
+                        icon: Icons.add,
+                        text: 'New Weight',
+                        color: Colors.white,
+                        fontSize: 20,
                       ),
-                      onChanged: (value) {
-                        newWeight = double.parse(value);
-                      },
-                    ),
-                  ),
-                  Divider(),
-                  IconTitle(
-                    icon: FontAwesomeIcons.book,
-                    text: "Note",
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: TextField(
-                      keyboardType: TextInputType.multiline,
-                      minLines: 1,
-                      maxLines: 5,
-                      decoration: InputDecoration(),
-                      onChanged: (value) {
-                        newNote = value;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextButton.icon(
-                    icon: Icon(
-                      Icons.add,
-                      size: 20,
-                    ),
-                    label: Text('New Diary'),
-                    style: TextButton.styleFrom(
-                      primary: Colors.black,
-                      backgroundColor: Color(0xff1afdd4),
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
+                      Divider(),
+                      IconTitle(
+                        icon: Icons.calendar_today,
+                        text: 'Calendar',
                       ),
-                    ),
-                    onPressed: () {
-                      _addDiary(context);
-                    },
+                      Container(
+                        height: 230,
+                        child: _getVerticalCalendar(),
+                      ),
+                      Divider(),
+                      IconTitle(
+                        icon: FontAwesomeIcons.weight,
+                        text: 'Weight',
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 30),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter a Weight',
+                            hintStyle: TextStyle(fontSize: 20),
+                            suffixText: 'kg',
+                            prefixText: '    ',
+                          ),
+                          onChanged: (value) {
+                            newWeight = double.parse(value);
+                          },
+                        ),
+                      ),
+                      Divider(),
+                      IconTitle(
+                        icon: FontAwesomeIcons.book,
+                        text: "Note",
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          minLines: 1,
+                          maxLines: 5,
+                          decoration: InputDecoration(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 20),
+                          ),
+                          onChanged: (value) {
+                            newNote = value;
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextButton.icon(
+                        icon: Icon(
+                          Icons.add,
+                          size: 20,
+                        ),
+                        label: Text('New Diary'),
+                        style: TextButton.styleFrom(
+                          primary: Colors.black,
+                          backgroundColor: Color(0xff1afdd4),
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () {
+                          _addDiary(context);
+                        },
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
