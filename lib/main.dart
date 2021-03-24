@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:weight_diary/screens/add_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:weight_diary/screens/history_screen.dart';
@@ -8,7 +9,9 @@ import 'models/diary_data.dart';
 
 bool theme = false;
 
-void main() async {
+void main()  {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(MyApp());
 }
 

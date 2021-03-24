@@ -3,6 +3,9 @@
    <application
         android:label="weight_diary"
         android:icon="@mipmap/ic_launcher">
+       <meta-data
+           android:name="com.google.android.gms.ads.APPLICATION_ID"
+           android:value="ca-app-pub-1230120872052589~7210801607" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
