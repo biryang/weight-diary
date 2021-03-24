@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:weight_diary/components/history_list.dart';
 import 'package:weight_diary/components/icon_title.dart';
 
 /// This is the stateless widget that the main application instantiates.
@@ -13,25 +14,25 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          IconTitle(
-            icon: FontAwesomeIcons.book,
-            text: 'History',
-            color: Colors.white,
-            fontSize: 20,
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          child: Column(
+            children: [
+              IconTitle(
+                icon: FontAwesomeIcons.history,
+                text: 'History',
+                color: Colors.white,
+                fontSize: 20,
+              ),
+              Divider(),
+              Expanded(
+                child: HistoryList(
+                ),
+              ),
+            ],
           ),
-          Divider(),
-          ElevatedButton(
-            child: Text('tset'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-              padding: EdgeInsets.all(20),
-            ),
-            onPressed: () {},
-          )
-        ],
+        ),
       ),
     );
   }

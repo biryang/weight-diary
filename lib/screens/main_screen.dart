@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weight_diary/components/bmi_slider.dart';
@@ -8,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weight_diary/components/history_list.dart';
 import 'package:weight_diary/components/icon_title.dart';
 import 'package:weight_diary/models/diary_data.dart';
+import 'package:weight_diary/screens/add_screen.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -16,20 +18,28 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   double height = 0;
-  double weight = 70;
+  double weight = 0;
   double bmi = 0;
+  TextEditingController _controller = new TextEditingController();
 
   @override
   void initState() {
     Provider.of<DiaryData>(context, listen: false).getContacts();
+    Provider.of<DiaryData>(context, listen: false).getHeight();
+
+    init();
     super.initState();
+  }
+
+  void init() async {
+    _controller.text =
+        await Provider.of<DiaryData>(context, listen: false).getHeight();
   }
 
   @override
   Widget build(BuildContext context) {
-    bmi = (height != 0 && weight != 0) ? weight / ((height / 100) * 2) : 0;
     weight = Provider.of<DiaryData>(context, listen: true).getContact(0).weight;
-
+    bmi = (height != 0 && weight != 0) ? weight / ((height / 100) * 2) : 0;
     return Scaffold(
       floatingActionButton: CustomFloating(
         onPressed: () {
@@ -50,6 +60,7 @@ class _MainScreenState extends State<MainScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconTitle(
                             icon: FontAwesomeIcons.book,
@@ -57,8 +68,28 @@ class _MainScreenState extends State<MainScreen> {
                             color: Colors.white,
                             fontSize: 20,
                           ),
-                          Icon(Icons.wb_sunny),
-                          Icon(Icons.nightlight_round),
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.wb_sunny),
+                                onPressed: () {
+                                  Provider.of<DiaryData>(context, listen: false)
+                                      .setThemeData(true);
+                                  Provider.of<DiaryData>(context, listen: false)
+                                      .getThemeData();
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.nightlight_round),
+                                onPressed: () {
+                                  Provider.of<DiaryData>(context, listen: false)
+                                      .setThemeData(false);
+                                  Provider.of<DiaryData>(context, listen: false)
+                                      .getThemeData();
+                                },
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                       Divider(),
@@ -84,6 +115,7 @@ class _MainScreenState extends State<MainScreen> {
                             Expanded(
                               flex: 1,
                               child: TextField(
+                                controller: _controller,
                                 autofocus: false,
                                 keyboardType: TextInputType.number,
                                 textAlign: TextAlign.center,
@@ -91,13 +123,22 @@ class _MainScreenState extends State<MainScreen> {
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 13.5, horizontal: 10),
+                                  // border: OutlineInputBorder(),
                                   border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4)),
+                                    borderSide: BorderSide(
+                                        width: 1, color: Color(0x807b7b7b)),
+                                  ),
                                   hintText: 'Enter a Height',
                                   hintStyle: TextStyle(fontSize: 15),
                                   suffixText: 'cm',
                                   prefixText: '    ',
                                 ),
                                 onChanged: (value) {
+                                  Provider.of<DiaryData>(context, listen: false)
+                                      .setHeight(value);
                                   setState(() {
                                     height = double.parse(value);
                                   });
@@ -113,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
                                     border: Border.all(
-                                        color: Colors.white38,
+                                        color: Color(0x807b7b7b),
                                         style: BorderStyle.solid,
                                         width: 1)),
                                 child: Row(
@@ -147,7 +188,8 @@ class _MainScreenState extends State<MainScreen> {
                         text: 'Chart',
                       ),
                       BmiLineChart(
-                        diaryData: Provider.of<DiaryData>(context).diary,
+                        diaryData:
+                            Provider.of<DiaryData>(context, listen: true).diary,
                         max: Provider.of<DiaryData>(context).weightMax,
                       ),
                       Divider(),

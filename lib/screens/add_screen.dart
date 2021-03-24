@@ -12,6 +12,9 @@ class AddScreen extends StatelessWidget {
   String newNote;
 
   void _addDiary(context) {
+    print(newDate);
+    print(newWeight);
+    print(newNote);
     Provider.of<DiaryData>(context, listen: false).addContact(
       DiaryModel(
         date: newDate.toString(),
@@ -60,6 +63,7 @@ class AddScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: TextField(
+
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 30),
@@ -106,7 +110,7 @@ class AddScreen extends StatelessWidget {
                         label: Text('New Diary'),
                         style: TextButton.styleFrom(
                           primary: Colors.black,
-                          backgroundColor: Color(0xff1afdd4),
+                          backgroundColor: Theme.of(context).accentColor,
                           textStyle: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
