@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:weight_diary/models/diary_model.dart';
 import 'package:weight_diary/screens/add_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:weight_diary/screens/history_screen.dart';
 import 'package:weight_diary/screens/main_screen.dart';
-import 'package:provider/provider.dart';
-
+import 'package:weight_diary/screens/page_screen.dart';
 import 'models/diary_data.dart';
 
-void main() async {
+bool theme = false;
 
+void main() async {
   runApp(MyApp());
 }
 
@@ -17,14 +17,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => DiaryData(),
-      child: MaterialApp(
-        theme: ThemeData.dark(),
-        routes: {
-          '/': (context) => MainScreen(),
-          '/add': (context) => AddScreen(),
-          '/history': (context) => HistoryScreen(),
+      child: Consumer<DiaryData>(
+        builder: (context, diaryData, child) {
+          return MaterialApp(
+            theme: diaryData.theme,
+            routes: {
+              '/': (context) => PageScreen(),
+              '/add': (context) => AddScreen(),
+            },
+            initialRoute: '/',
+          );
         },
-        initialRoute: '/',
       ),
     );
   }

@@ -13,7 +13,7 @@ class CustomFloating extends StatelessWidget {
       label: Text('New Diary'),
       style: TextButton.styleFrom(
         primary: Colors.black,
-        backgroundColor: Color(0xff1afdd4),
+        backgroundColor: Theme.of(context).accentColor,
         textStyle: TextStyle(
           fontWeight: FontWeight.bold,
         ),

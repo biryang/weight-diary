@@ -22,7 +22,7 @@ class IconTitle extends StatelessWidget {
         children: [
           FaIcon(
             icon,
-            color: Colors.white70,
+            // color: Colors.white70,
             size: fontSize + 3,
           ),
           SizedBox(
@@ -31,7 +31,7 @@ class IconTitle extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-              color: color,
+              // color: color,
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
             ),

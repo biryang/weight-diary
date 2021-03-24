@@ -68,7 +68,7 @@ class _HistoryCardState extends State<HistoryCard>
         onTap: _handleTap,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white10,
+            color: Color(0x807b7b7b),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           child: Padding(
@@ -182,7 +182,7 @@ class _HistoryCardState extends State<HistoryCard>
                             width: 500,
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                                color: Colors.white10,
+                                color: Colors.black26,
                                 borderRadius: BorderRadius.circular(5)),
                             child: Text(widget.note),
                           ),

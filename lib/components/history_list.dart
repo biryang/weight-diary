@@ -21,8 +21,6 @@ class HistoryList extends StatelessWidget {
                 ? 0
                 : diaryData.diary[index].weight -
                     diaryData.diary[index + 1].weight;
-
-            // print(changeWeight.abs());
             return HistoryCard(
               id: diary.id,
               date: diary.date,
@@ -31,9 +29,9 @@ class HistoryList extends StatelessWidget {
               note: diary.note,
             );
           },
-          itemCount: diaryData.diaryCount <= 2
+          itemCount:listCount == null
               ? diaryData.diaryCount
-              : listCount == null
+              :  diaryData.diaryCount <= listCount
                   ? diaryData.diaryCount
                   : listCount,
         );

@@ -41,7 +41,6 @@ class DatabaseHelper {
   //Diary 등록
   Future<void> insertDiary(DiaryModel diary) async {
     final Database db = await database;
-    print(diary);
     await db.insert(
       tableName,
       diary.toMap(),
@@ -94,21 +93,17 @@ class DatabaseHelper {
 
     List result = await db.rawQuery(
         "SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'android_%'");
-    print('show');
-    print(result);
   }
 
   Future<void> readTable() async {
     final db = await database;
     dynamic result = await db
         .rawQuery("SELECT sql FROM sqlite_master WHERE tbl_name='$tableName'");
-    print(result);
   }
 
   Future<void> dropTable() async {
     final db = await database;
     dynamic result = await db.rawQuery("DROP TABLE IF EXISTS '$tableName'");
-    print(result);
   }
 
   Future<void> addTable() async {
@@ -121,6 +116,5 @@ class DatabaseHelper {
               $colNote TEXT
             )
           """);
-    print(result);
   }
 }
