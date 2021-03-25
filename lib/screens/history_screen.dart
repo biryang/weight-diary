@@ -22,44 +22,44 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   AdWidget adWidget;
   Container adContainer;
+
   @override
   void initState() {
-    Future(() async => await myBanner.load())
-        .then((_){
-      if(!mounted) return;
-      setState(() {
-        adWidget = AdWidget(ad: myBanner);
-        adContainer = Container(
-          alignment: Alignment.center,
-          child: adWidget,
-          width: myBanner.size.width.toDouble(),
-          height: myBanner.size.height.toDouble(),
-        );
-      });
-    });
+    Future(() async => await myBanner.load()).then(
+      (_) {
+        if (!mounted) return;
+        setState(() {
+          adWidget = AdWidget(ad: myBanner);
+          adContainer = Container(
+            alignment: Alignment.center,
+            child: adWidget,
+            width: myBanner.size.width.toDouble(),
+            height: myBanner.size.height.toDouble(),
+          );
+        });
+      },
+    );
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          child: Column(
-            children: [
-              IconTitle(
-                icon: FontAwesomeIcons.history,
-                text: 'History',
-                color: Colors.white,
-                fontSize: 20,
-              ),
-              Divider(),
-              Expanded(
-                child: HistoryList(
-                ),
-              ),
-              adContainer ?? Container(),
-            ],
-          ),
+    return Scaffold(
+      body: Container(
+        child: Column(
+          children: [
+            IconTitle(
+              icon: FontAwesomeIcons.history,
+              text: 'History',
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            Divider(),
+            Expanded(
+              child: HistoryList(),
+            ),
+            adContainer ?? Container(),
+          ],
         ),
       ),
     );

@@ -5,11 +5,13 @@ import 'package:weight_diary/screens/main_screen.dart';
 class PageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      children: [
-        MainScreen(),
-        HistoryScreen()
-      ],
+    return SafeArea(
+      child: PageView(
+        children: [
+          MainScreen(),
+          HistoryScreen()
+        ],
+      ),
     );
   }
 }
