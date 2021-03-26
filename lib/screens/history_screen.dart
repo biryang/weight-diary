@@ -12,7 +12,7 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   final BannerAd myBanner = BannerAd(
-    adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+    adUnitId: 'ca-app-pub-1230120872052589/6136381326',
     size: AdSize.banner,
     request: AdRequest(),
     listener: AdListener(
@@ -44,23 +44,21 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            IconTitle(
-              icon: FontAwesomeIcons.history,
-              text: 'History',
-              color: Colors.white,
-              fontSize: 20,
-            ),
-            Divider(),
-            Expanded(
-              child: HistoryList(),
-            ),
-            adContainer ?? Container(),
-          ],
-        ),
+    return Container(
+      child: Column(
+        children: [
+          IconTitle(
+            icon: FontAwesomeIcons.history,
+            text: 'History',
+            color: Colors.white,
+            fontSize: 20,
+          ),
+          const Divider(),
+          Expanded(
+            child: HistoryList(),
+          ),
+          adContainer ?? Container(),
+        ],
       ),
     );
   }

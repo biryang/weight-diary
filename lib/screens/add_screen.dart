@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:weight_diary/models/diary_model.dart';
 import 'package:weight_diary/models/diary_data.dart';
 
+// ignore: must_be_immutable
 class AddScreen extends StatelessWidget {
   DateTime newDate = DateTime.now();
   double newWeight;
@@ -46,7 +47,7 @@ class AddScreen extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 20,
                       ),
-                      Divider(),
+                      const Divider(),
                       IconTitle(
                         icon: Icons.calendar_today,
                         text: 'Calendar',
@@ -55,7 +56,7 @@ class AddScreen extends StatelessWidget {
                         height: 230,
                         child: _getVerticalCalendar(),
                       ),
-                      Divider(),
+                      const Divider(),
                       IconTitle(
                         icon: FontAwesomeIcons.weight,
                         text: 'Weight',
@@ -63,7 +64,6 @@ class AddScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: TextField(
-
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 30),
@@ -79,7 +79,7 @@ class AddScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      Divider(),
+                      const Divider(),
                       IconTitle(
                         icon: FontAwesomeIcons.book,
                         text: "Note",
@@ -99,7 +99,7 @@ class AddScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextButton.icon(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BmiSlider extends StatelessWidget {
   BmiSlider({this.value, this.left, this.right});
 

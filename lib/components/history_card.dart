@@ -4,9 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:weight_diary/models/diary_data.dart';
-import 'package:weight_diary/models/diary_model.dart';
-
-const Duration _kExpand = Duration(milliseconds: 200);
 
 class HistoryCard extends StatefulWidget {
   HistoryCard({this.id, this.date, this.weight, this.changeWeight, this.note});
@@ -23,15 +20,6 @@ class HistoryCard extends StatefulWidget {
 
 class _HistoryCardState extends State<HistoryCard>
     with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeOutTween =
-      CurveTween(curve: Curves.easeOut);
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.5);
-
-  AnimationController _controller;
-
   bool _isExpanded = false;
 
   String upAndDown;
@@ -39,7 +27,6 @@ class _HistoryCardState extends State<HistoryCard>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: _kExpand, vsync: this);
   }
 
   void upDown() {
@@ -78,32 +65,29 @@ class _HistoryCardState extends State<HistoryCard>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [],
-                    ),
                     Expanded(flex: 1, child: Text(widget.date)),
                     Expanded(
                       flex: 1,
                       child: Row(
                         children: [
                           upAndDown == 'down'
-                              ? FaIcon(
+                              ? const FaIcon(
                                   FontAwesomeIcons.caretDown,
                                   color: Colors.blue,
                                 )
-                              : SizedBox(),
+                              : const SizedBox(),
                           upAndDown == 'up'
-                              ? FaIcon(
+                              ? const FaIcon(
                                   FontAwesomeIcons.caretUp,
                                   color: Colors.red,
                                 )
-                              : SizedBox(),
+                              : const SizedBox(),
                           upAndDown == 'keep'
-                              ? FaIcon(
+                              ? const FaIcon(
                                   FontAwesomeIcons.minus,
                                   size: 15,
                                 )
-                              : SizedBox(),
+                              : const SizedBox(),
                           Padding(
                             padding: EdgeInsets.only(left: 10),
                             child: Text(
@@ -137,16 +121,17 @@ class _HistoryCardState extends State<HistoryCard>
                       ),
                     ),
                     GestureDetector(
-                      onLongPress: () {
+                      onTap: () {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Delete?'),
+                              title: const Text('Delete?'),
                               actions: [
                                 TextButton(
                                     onPressed: () {
-                                      Provider.of<DiaryData>(context, listen: false)
+                                      Provider.of<DiaryData>(context,
+                                              listen: false)
                                           .deleteContact(widget.id);
                                       Navigator.pop(context);
                                     },
@@ -161,7 +146,7 @@ class _HistoryCardState extends State<HistoryCard>
                           },
                         );
                       },
-                      child: Padding(
+                      child: const Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: FaIcon(
                           FontAwesomeIcons.trash,
@@ -174,7 +159,7 @@ class _HistoryCardState extends State<HistoryCard>
                 _isExpanded
                     ? Column(
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(5),
                             child: Text('Note'),
                           ),

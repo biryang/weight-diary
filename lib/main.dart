@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:weight_diary/screens/add_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:weight_diary/screens/history_screen.dart';
-import 'package:weight_diary/screens/main_screen.dart';
 import 'package:weight_diary/screens/page_screen.dart';
 import 'models/diary_data.dart';
 
