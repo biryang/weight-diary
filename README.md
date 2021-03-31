@@ -1,16 +1,24 @@
-# weight_diary
+# Weight Diary
+> ## 사용 패키지
+  *font_awesome_flutter
+  *provider
+  *sqflite
+  *syncfusion_flutter
 
+> ## 설명
 간단한 메모와 체중을 기록하여 변화를 표시해주는 App
 
-## Getting Started
+>## 기능
+- [X] BMI 계산
+- [X] 체중 변화 차트 표기
+- [X] 체중 및 특이사항 기록
+- [X] 체중 기록 확인
+- [X] 라이트/다크 모드 지원
 
-This project is a starting point for a Flutter application.
+> ## 소개
+|                           |                           |
+| :-----------------------: | :-----------------------: |
+| <img src="./info/3.png"/> | <img src="./info/4.png"/> |
+| <img src="./info/5.png"/> | <img src="./info/6.png"/> |
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
